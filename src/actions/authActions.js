@@ -31,7 +31,7 @@ export const loginUser = userData => dispatch => {
     })*/
     axios({
       method: 'post',
-      url: "http://rumeh.com:9000/api/signin",
+      url: "/api/signin",
       headers: headers, 
       data: userData
     })
