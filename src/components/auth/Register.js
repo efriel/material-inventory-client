@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import classnames from "classnames";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 import Popper from 'popper.js';
@@ -16,6 +20,22 @@ class Register extends Component {
       errors: {}
     };
   }
+
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+    
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -27,7 +47,7 @@ const newUser = {
       password: this.state.password,
       password2: this.state.password2
     };
-console.log(newUser);
+    this.props.registerUser(newUser, this.props.history); 
   };
 render() {
     const { errors } = this.state;
@@ -55,9 +75,12 @@ return (
                   error={errors.name}
                   id="name"
                   type="text"
-                  placeholder="Name"
-                  className="form-control"
-                />                
+                  placeholder="Name"                  
+                  className={classnames("form-control", {
+                    invalid: errors.name
+                  })}
+                />   
+                <span className="red-text">{errors.name}</span>             
               </div>
               <div className="form-group input-field col-sm-12">
                 
@@ -67,9 +90,12 @@ return (
                   error={errors.email}
                   id="email"
                   type="email"
-                  placeholder="Email"
-                  className="form-control"
+                  placeholder="Email"                  
+                  className={classnames("form-control", {
+                    invalid: errors.email
+                  })}
                 />                
+                <span className="red-text">{errors.email}</span>
               </div>
               <div className="form-group input-field col-sm-12">                
                 <input
@@ -78,9 +104,12 @@ return (
                   error={errors.password}
                   id="password"
                   type="password"
-                  placeholder="Password"
-                  className="form-control"
-                />                
+                  placeholder="Password"                  
+                  className={classnames("form-control", {
+                    invalid: errors.password
+                  })}
+                />               
+                <span className="red-text">{errors.password}</span> 
               </div>
               <div className="form-group input-field col-sm-12">                
                 <input
@@ -89,9 +118,12 @@ return (
                   error={errors.password2}
                   id="password2"
                   type="password"
-                  placeholder="Confirm Password"
-                  className="form-control"
-                />                
+                  placeholder="Confirm Password"                  
+                  className={classnames("form-control", {
+                    invalid: errors.password2
+                  })}
+                />   
+                <span className="red-text">{errors.password2}</span>             
               </div>
               <div className="col-sm-12" style={{ paddingLeft: "11.250px" }}>
                 <button
@@ -114,4 +146,17 @@ return (
     );
   }
 }
-export default Register;
+
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+  };
+  const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+  });
+  export default connect(
+    mapStateToProps,
+    { registerUser }
+  )(withRouter(Register));
