@@ -38,9 +38,9 @@ export const loginUser = userData => dispatch => {
     //.post("http://rumeh.com:9000/api/signin", userData)
     .then(res => {
       // Save to localStorage
-// Set token to localStorage
-      console.log(res);
+// Set token to localStorage      
       const { token } = res.data.data.Response.AuthToken;
+      console.log(res.data.data);
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
