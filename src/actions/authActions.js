@@ -21,13 +21,25 @@ export const registerUser = (userData, history) => dispatch => {
 };
 // Login - get user token
 export const loginUser = userData => dispatch => {
-  axios
-    .post("/api/signin", userData)
+  userData = JSON.stringify(userData);
+  const headers = {
+    'Content-Type': 'application/json',   
+  }
+    /*axios
+    .post("/api/signin", userData, {
+      headers: headers
+    })*/
+    axios({
+      method: 'post',
+      url: "/api/signin",
+      headers: headers, 
+      data: userData
+    })
     //.post("http://rumeh.com:9000/api/signin", userData)
     .then(res => {
       // Save to localStorage
 // Set token to localStorage
-      console.log(res.data);
+      console.log(res);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
