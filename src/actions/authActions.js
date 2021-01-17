@@ -21,7 +21,7 @@ export const registerUser = (userData, history) => dispatch => {
 };
 // Login - get user token
 export const loginUser = userData => dispatch => {
-  userData = JSON.stringify(userData);
+  //userData = JSON.stringify(userData);
   const headers = {
     'Content-Type': 'application/json',   
   }
@@ -38,8 +38,7 @@ export const loginUser = userData => dispatch => {
     //.post("http://rumeh.com:9000/api/signin", userData)
     .then(res => {
       // Save to localStorage
-// Set token to localStorage
-      console.log(res);
+// Set token to localStorage      
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
