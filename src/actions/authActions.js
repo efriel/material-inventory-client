@@ -9,7 +9,7 @@ import {
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("/api/signup", userData)
+    .post("http://rumeh.com:9000/api/signup", userData)
     //.post("http://rumeh.com:9000/api/signup", userData)    
     .then(res => history.push("/login")) // re-direct to login on successful register
     .catch(err =>
@@ -31,7 +31,7 @@ export const loginUser = userData => dispatch => {
     })*/
     axios({
       method: 'post',
-      url: "/api/signin",
+      url: "http://rumeh.com:9000/api/signin",
       headers: headers, 
       data: userData
     })
