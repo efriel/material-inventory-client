@@ -15,14 +15,15 @@ class Dashboard extends Component {
 
 render() {
     const { user } = this.props.auth;
+    const { name } = user.Name;
     console.log('dbrd user')
-    console.log(user)
+    console.log(name)
 return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Welcome,</b> {user}
+              <b>Welcome,</b> {name}
               <p className="flow-text grey-text text-darken-1">
                 You are logged into
                 <span style={{ fontFamily: "monospace" }}>MIS</span> app
