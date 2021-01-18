@@ -14,18 +14,15 @@ class Dashboard extends Component {
   };
 
 render() {
-    const { user } = this.props.auth;    
-    console.log('dbrd user')
-    console.log(user.Name)
+    const { user } = this.props.auth;        
 return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
-          <div className="col s12 center-align">
+          <div className="col-sm-12 center-align">
             <h4>
               <b>Welcome,</b> {user.Name}
               <p className="flow-text grey-text text-darken-1">
-                You are logged into
-                <span style={{ fontFamily: "monospace" }}>MIS</span> app
+                You are logged into MIS
               </p>
             </h4>
             <button
@@ -36,7 +33,7 @@ return (
                 marginTop: "1rem"
               }}
               onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              className="btn btn-sm btn-info"
             >
               Logout
             </button>
