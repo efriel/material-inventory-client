@@ -14,8 +14,8 @@ class Dashboard extends Component {
   };
 
 render() {
-    const { user } = this.props.auth;
-    const { name } = user.Name;
+    const user = this.props.auth;
+    const name = user.Name;
     console.log('dbrd user')
     console.log(name)
 return (
