@@ -8,45 +8,71 @@ import './App.css';
 import { Provider } from "react-redux";
 import store from "./store";
 
-import Navbarheader from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import MasterPart from "./components/master/Part";
+import MasterGoods from "./components/master/Goods";
+import MasterSite from "./components/master/Site";
+import MasterSupplier from "./components/master/Supplier";
+import PurchasingRequest from "./components/purchasing/Request";
+import PurchasingInvoice from "./components/purchasing/Invoice";
+import PurchasingPo from "./components/purchasing/Po";
+import PurchasingReceipt from "./components/purchasing/Receipt";
+import SalesOrder from "./components/sales/Order";
+import SalesInvoice from "./components/sales/Invoice";
+import SalesReceipt from "./components/sales/Receipt";
+import SalesSentitem from "./components/sales/Sentitem";
+import RequestUse from "./components/request/Use";
+import RequestMutation from "./components/request/Mutation";
+import RequestDeliverynote from "./components/request/Deliverynote";
 
 if (localStorage.jwtToken) {  
   const token = localStorage.jwtToken;  
-  console.log('lokaltoken');
-  console.log(token);
   setAuthToken(token);  
   const decoded = jwt_decode(token);  
   store.dispatch(setCurrentUser(decoded));
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  console.log('tokenexpiry');
-  console.log(decoded.exp);
+  const currentTime = Date.now() / 1000; // to get in milliseconds  
   if (decoded.exp < currentTime) {    
     store.dispatch(logoutUser());    
     window.location.href = "./login";
   }
 }
 
-function App() {
-  return (
-    <Provider store={store}>
-        <Router>
-            <div className="App">
-              <Navbarheader />
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
+ class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+          <Router>
               <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-            </div>
-        </Router>
-    </Provider>    
-  );
+              <div className="App">              
+                  <Route exact path="/" component={Landing} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                  <PrivateRoute path="/dashboard" component={Dashboard} />
+                  <PrivateRoute path="/master/part" component={MasterPart} />
+                  <PrivateRoute path="/master/goods" component={MasterGoods} />
+                  <PrivateRoute path="/master/site" component={MasterSite} />
+                  <PrivateRoute path="/master/supplier" component={MasterSupplier} />
+                  <PrivateRoute path="/purchasing/request" component={PurchasingRequest} />
+                  <PrivateRoute path="/purchasing/invoice" component={PurchasingInvoice} />
+                  <PrivateRoute path="/purchasing/po" component={PurchasingPo} />
+                  <PrivateRoute path="/purchasing/receipt" component={PurchasingReceipt} />
+                  <PrivateRoute path="/sales/order" component={SalesOrder} />
+                  <PrivateRoute path="/sales/invoice" component={SalesInvoice} />
+                  <PrivateRoute path="/sales/receipt" component={SalesReceipt} />
+                  <PrivateRoute path="/sales/sentitem" component={SalesSentitem} />
+                  <PrivateRoute path="/request/use" component={RequestUse} />
+                  <PrivateRoute path="/request/mutation" component={RequestMutation} />              
+                  <PrivateRoute path="/request/deliverynote" component={RequestDeliverynote} />
+              </div>
+              </Switch>                
+          </Router>
+      </Provider>    
+    );
+  }
 }
 
 export default App;

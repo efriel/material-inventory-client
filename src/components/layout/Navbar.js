@@ -1,21 +1,37 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 import { Fragment } from 'react';
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 
 class Navbarheader extends Component {
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
+
   render() {
+    const { user } = this.props.auth;
     return (
         <Fragment>
         <Navbar color="faded" light expand="md">
-          
+          <NavbarBrand href="/dashboard">
+            MIS
+          </NavbarBrand>
+          <b>{user.Name}, </b> <a href="/logout"              
+              onClick={this.onLogoutClick}
+              className="btn tri-f-blue"
+            >
+              Logout
+            </a>
           <Nav className="ml-auto" nav  bar>
           
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" href="#">
-              Home
+              Dashboard
             </NavLink>
           </NavItem>
 
@@ -24,16 +40,16 @@ class Navbarheader extends Component {
               Master
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>
+              <DropdownItem href="/master/part">
                 Part
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem href="/master/goods">
                 Finished Good
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/master/site">
                 Site
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem href="/master/supplier">
                 Supplier
               </DropdownItem>                
             </DropdownMenu>
@@ -44,29 +60,29 @@ class Navbarheader extends Component {
               Procurement
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>
+              <DropdownItem href="/purchasing/request">
                 Request 
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem href="/purchasing/invoice">
                 Vendor Invoice
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/purchasing/po">
                 PO to Vendor
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem href="/purchasing/receipt">
                 Vendor Receipt
               </DropdownItem>                
               <DropdownItem divider />
-              <DropdownItem>
+              <DropdownItem href="/sales/order">
                 Cust. Order
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/sales/invoice">
                 Cust. Invoice
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/sales/receipt">
                 Cust. Receipt
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/sales/sentitem">
                 Sent Item
               </DropdownItem>                
             </DropdownMenu>
@@ -77,13 +93,13 @@ class Navbarheader extends Component {
               Use and Mutation
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>
+              <DropdownItem href="/request/use">
                 Form Use
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem href="/request/mutation">
                 Form Mutation
               </DropdownItem>                
-              <DropdownItem>
+              <DropdownItem href="/request/deliverynote">
                 Delivery Note
               </DropdownItem>              
             </DropdownMenu>
@@ -91,13 +107,23 @@ class Navbarheader extends Component {
 
           </Nav>
 
-          <NavbarBrand href="/">
-            MIS
-          </NavbarBrand>
+          
 
         </Navbar>
       </Fragment>
     );
   }
 }
-export default Navbarheader;
+
+Navbarheader.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Navbarheader);
+//export default Navbarheader;

@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 class Dashboard extends Component {
@@ -19,6 +17,8 @@ return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col-sm-12 center-align">
+            <div className="row">
+              <div className="col-sm-6 offset-sm-3 center-align">
             <h4>
               <b>Welcome,</b> {user.Name}
               <p className="flow-text grey-text text-darken-1">
@@ -33,11 +33,13 @@ return (
                 marginTop: "1rem"
               }}
               onClick={this.onLogoutClick}
-              className="btn btn-sm btn-info"
+              className="btn btn-sm tri-blue"
             >
               Logout
             </button>
           </div>
+            </div>    
+          </div>      
         </div>
       </div>
     );

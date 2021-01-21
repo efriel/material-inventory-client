@@ -9,8 +9,8 @@ import {
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://rumeh.com:9000/api/signup", userData)
-    //.post("http://rumeh.com:9000/api/signup", userData)    
+    //.post("http://rumeh.com:9000/api/signup", userData)
+    .post("/api/signup", userData)    
     .then(res => history.push("/login")) // re-direct to login on successful register
     .catch(err =>
       dispatch({
@@ -19,36 +19,25 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
-// Login - get user token
-export const loginUser = userData => dispatch => {
-  //userData = JSON.stringify(userData);
+
+export const loginUser = userData => dispatch => {  
   const headers = {
     'Content-Type': 'application/json',   
-  }
-    /*axios
-    .post("/api/signin", userData, {
-      headers: headers
-    })*/
+  }    
     axios({
       method: 'post',
-      url: "http://rumeh.com:9000/api/signin",
+      //url: "http://rumeh.com:9000/api/signin",
+      url: "/api/signin",
       headers: headers, 
       data: userData
-    })
-    //.post("http://rumeh.com:9000/api/signin", userData)
-    .then(res => {
-      // Save to localStorage
-// Set token to localStorage      
-      //const { token } = res.data.Response.AuthToken;
+    })    
+    .then(res => {      
       const token =  res.data.Response.AuthToken;      
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
+      localStorage.setItem("jwtToken", token);      
+      setAuthToken(token);      
       const decoded = jwt_decode(token);
       console.log('decoded');
-      console.log(decoded);
-      // Set current user
+      console.log(decoded);      
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
