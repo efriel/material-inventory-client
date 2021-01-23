@@ -3,7 +3,7 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
-  SET_CURRENT_USER,
+  SET_CURRENT_USER,  
   USER_LOADING
 } from "./types";
 // Register User
@@ -32,13 +32,11 @@ export const loginUser = userData => dispatch => {
       data: userData
     })    
     .then(res => {      
-      const token =  res.data.Response.AuthToken;      
+      const token =  res.data.Response.AuthToken;                   
       localStorage.setItem("jwtToken", token);      
       setAuthToken(token);      
-      const decoded = jwt_decode(token);
-      console.log('decoded');
-      console.log(decoded);      
-      dispatch(setCurrentUser(decoded));
+      const decoded = jwt_decode(token);      
+      dispatch(setCurrentUser(decoded));      
     })
     .catch(err =>
       dispatch({
@@ -67,5 +65,5 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  dispatch(setCurrentUser({}));  
 };

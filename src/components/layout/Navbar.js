@@ -12,16 +12,17 @@ class Navbarheader extends Component {
     e.preventDefault();
     this.props.logoutUser();
   };
-
-  render() {
-    const { user } = this.props.auth;
+  
+  render() {    
+    const { user } = this.props.auth;    
+    
     return (
         <Fragment>
         <Navbar color="faded" light expand="md">
           <NavbarBrand href="/dashboard">
             MIS
           </NavbarBrand>
-          <b>{user.Name}, </b> <a href="/logout"              
+          <b>{user.Name} ({user.Userid})</b> <a href="/logout"              
               onClick={this.onLogoutClick}
               className="btn tri-f-blue"
             >
@@ -30,7 +31,7 @@ class Navbarheader extends Component {
           <Nav className="ml-auto" nav bar>
           
           <NavItem className="d-flex align-items-center">
-            <NavLink className="font-weight-bold" href="#">
+            <NavLink className="font-weight-bold"  href="/dashboard">
               Dashboard
             </NavLink>
           </NavItem>

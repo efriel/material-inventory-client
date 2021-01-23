@@ -20,13 +20,25 @@ class SelectSite extends Component {
             this.setState({ items: option.map(({ site_id, site_name }) => ({ label: site_id, value: site_name }))});
         });                                      
     }    
+
+    handleOnChange = e => {
+        const inputSelect = e;
+        this.setState({
+          value: e.currentTarget.value
+        });
+        this.props.onChange(inputSelect);
+    };
+
+    
   
     render() {          
-        console.log(this.props.options);
+        
         return (            
-                <select                
-                value={this.state.value}
-                onChange={(e) => this.setState({value: e.currentTarget.value})}
+                <select
+                id="SiteId"
+                name="SiteId"
+                onChange={this.handleOnChange}                
+                value={this.state.value}                          
                 >
                 {this.state.items.map(({ label, value }) => (                    
                     <option key={label} value={label}>
@@ -37,5 +49,5 @@ class SelectSite extends Component {
         );
     } 
 }
-
+//onChange={(e) => this.setState({value: e.currentTarget.value})}
 export default SelectSite;

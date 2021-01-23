@@ -23,13 +23,23 @@ class SelectCategory extends Component {
             this.setState({ items: option.map(({ mg_cat_id, mg_cat_name }) => ({ label: mg_cat_id, value: mg_cat_name }))});
         });                                      
     }    
+
+    handleOnChange = e => {
+        const inputSelect = e;
+        this.setState({
+          value: e.currentTarget.value
+        });
+        this.props.onChange(inputSelect);
+    };
   
     render() {                  
                 
         return (            
                 <select                
-                value={this.state.value}
-                onChange={(e) => this.setState({value: e.currentTarget.value})}                               
+                id="CatId"
+                name="CatId"
+                onChange={this.handleOnChange}                
+                value={this.state.value}                               
                 >
                 {this.state.items.map(({ label, value }) => (                    
                     <option key={label} value={label}>

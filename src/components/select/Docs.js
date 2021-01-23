@@ -20,13 +20,23 @@ class SelectDocs extends Component {
             this.setState({ items: option.map(({ doc_number, file_name }) => ({ label: doc_number, value: file_name }))});
         });                                      
     }    
+
+    handleOnChange = e => {
+        const inputSelect = e;
+        this.setState({
+          value: e.currentTarget.value
+        });
+        this.props.onChange(inputSelect);
+    };
   
     render() {          
-        console.log(this.props.options);
+        
         return (            
-                <select                
-                value={this.state.value}
-                onChange={(e) => this.setState({value: e.currentTarget.value})}
+                <select               
+                id="DocNumber"
+                name="DocNumber"
+                onChange={this.handleOnChange}                
+                value={this.state.value}              
                 >
                 {this.state.items.map(({ label, value }) => (                    
                     <option key={label} value={label}>

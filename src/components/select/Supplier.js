@@ -20,13 +20,23 @@ class SelectSupplier extends Component {
             this.setState({ items: option.map(({ supplier_id, supplier_name }) => ({ label: supplier_id, value: supplier_name }))});
         });                                      
     }    
+
+    handleOnChange = e => {
+        const inputSelect = e;
+        this.setState({
+          value: e.currentTarget.value
+        });
+        this.props.onChange(inputSelect);
+    };
   
     render() {          
-        console.log(this.props.options);
+        
         return (            
-                <select                
-                value={this.state.value}
-                onChange={(e) => this.setState({value: e.currentTarget.value})}
+                <select           
+                id="SupplierId"
+                name="SupplierId"
+                onChange={this.handleOnChange}                
+                value={this.state.value}               
                 >
                 {this.state.items.map(({ label, value }) => (                    
                     <option key={label} value={label}>

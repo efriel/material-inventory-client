@@ -20,13 +20,23 @@ class SelectWarehouse extends Component {
             this.setState({ items: option.map(({ wh_id, wh_name }) => ({ label: wh_id, value: wh_name }))});
         });                                      
     }    
+
+    handleOnChange = e => {
+        const inputSelect = e;
+        this.setState({
+          value: e.currentTarget.value
+        });
+        this.props.onChange(inputSelect);
+    };
   
     render() {          
-        console.log(this.props.options);
+        
         return (            
                 <select                
-                value={this.state.value}
-                onChange={(e) => this.setState({value: e.currentTarget.value})}
+                id="WhId"
+                name="WhId"
+                onChange={this.handleOnChange}                
+                value={this.state.value}              
                 >
                 {this.state.items.map(({ label, value }) => (                    
                     <option key={label} value={label}>
