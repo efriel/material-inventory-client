@@ -44,3 +44,18 @@ button.btn.btn-sm.btn-info {
     background-color: #117a8b;
     border-color: #10707f;
 }
+
+.modal-backdrop {
+opacity: 0.5;
+}
+
+.modal.fade.in {
+opacity: 1;
+}
+
+.modal.fade.in .modal-dialog {
+transform: translate(0,0);
+}
+.form-group {
+    margin-bottom: 0.1rem;
+}

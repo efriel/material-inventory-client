@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+import Navbarheader from "./components/layout/Navbar";
 
 import './App.css';
 import { Provider } from "react-redux";
@@ -48,9 +49,10 @@ if (localStorage.jwtToken) {
           <Router>
               <Switch>
               <div className="App">              
+              <Navbarheader /> 
                   <Route exact path="/" component={Landing} />
                   <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/login" component={Login} />                  
                   <PrivateRoute path="/dashboard" component={Dashboard} />
                   <PrivateRoute path="/master/part" component={MasterPart} />
                   <PrivateRoute path="/master/goods" component={MasterGoods} />

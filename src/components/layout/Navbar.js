@@ -27,7 +27,7 @@ class Navbarheader extends Component {
             >
               Logout
             </a>
-          <Nav className="ml-auto" nav  bar>
+          <Nav className="ml-auto" nav bar>
           
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" href="#">

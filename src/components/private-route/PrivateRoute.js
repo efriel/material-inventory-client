@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Navbarheader from "../../components/layout/Navbar";
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
@@ -10,7 +9,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
     render={props =>
       auth.isAuthenticated === true ? (
         <div>
-        <Navbarheader />
+        
         <Component {...props} />
         </div>
       ) : (
