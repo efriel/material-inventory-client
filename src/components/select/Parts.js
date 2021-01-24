@@ -16,7 +16,7 @@ class SelectParts extends Component {
     }
         
     componentDidMount() {
-        axios.get("http://rumeh.com:9000/api/combo/parts")
+        axios.get("/api/combo/parts")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

@@ -13,7 +13,7 @@ class SelectSite extends Component {
     }
         
     componentDidMount() {
-        axios.get("http://rumeh.com:9000/api/combo/site")
+        axios.get("/api/combo/site")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

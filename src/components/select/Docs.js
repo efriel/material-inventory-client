@@ -13,7 +13,7 @@ class SelectDocs extends Component {
     }
         
     componentDidMount() {
-        axios.get("http://rumeh.com:9000/api/combo/docs")
+        axios.get("/api/combo/docs")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

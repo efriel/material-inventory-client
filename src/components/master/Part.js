@@ -51,7 +51,7 @@ class Part extends Component {
  
 
   componentDidMount() {
-    axios.get("http://rumeh.com:9000/api/master/part")
+    axios.get("/api/master/part")
     .then(res => {
       const parts = res.data.Response;      
       this.setState({ parts });      
@@ -113,10 +113,10 @@ class Part extends Component {
       "part_notes" : this.state.PartNotes,
     };
     let sendMethod = 'PUT';
-    let sendUrl = "http://rumeh.com:9000/api/master/part/"+PartId;
+    let sendUrl = "/api/master/part/"+PartId;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "http://rumeh.com:9000/api/master/part";
+      sendUrl = "/api/master/part";
     }
     console.log(partData);
     const headers = {
@@ -147,7 +147,7 @@ class Part extends Component {
     }    
     axios({
       method: 'DELETE',    
-      url: "http://rumeh.com:9000/api/master/part/"+PartId,
+      url: "/api/master/part/"+PartId,
       headers: headers,       
     })    
     .then(res => {

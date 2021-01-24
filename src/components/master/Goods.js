@@ -53,7 +53,7 @@ class Goods extends Component {
  
 
   componentDidMount() {
-    axios.get("http://rumeh.com:9000/api/master/goods")
+    axios.get("/api/master/goods")
     .then(res => {
       const goods = res.data.Response;      
       this.setState({ goods });      
@@ -119,10 +119,10 @@ class Goods extends Component {
       "fg_notes" : this.state.FgNotes,
     };
     let sendMethod = 'PUT';
-    let sendUrl = "http://rumeh.com:9000/api/master/goods/"+Fgid;
+    let sendUrl = "/api/master/goods/"+Fgid;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "http://rumeh.com:9000/api/master/goods";
+      sendUrl = "/api/master/goods";
     }
     console.log(goodsData);
     const headers = {
@@ -152,7 +152,7 @@ class Goods extends Component {
     }    
     axios({
       method: 'DELETE',    
-      url: "http://rumeh.com:9000/api/master/goods/"+Fgid,
+      url: "/api/master/goods/"+Fgid,
       headers: headers,       
     })    
     .then(res => {

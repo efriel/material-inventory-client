@@ -67,7 +67,7 @@ class Request extends Component {
  
 
   componentDidMount() {
-    axios.get("http://rumeh.com:9000/api/purchase/status/a")
+    axios.get("/api/purchase/status/a")
     .then(res => {
       const purchase = res.data.Response;      
       this.setState({ purchase });            
@@ -153,10 +153,10 @@ class Request extends Component {
     };
     
     let sendMethod = 'PUT';
-    let sendUrl = "http://rumeh.com:9000/api/purchase/status/"+Purchaseid;
+    let sendUrl = "/api/purchase/status/"+Purchaseid;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "http://rumeh.com:9000/api/purchase/status";
+      sendUrl = "/api/purchase/status";
     }
     
     console.log(partData);
@@ -187,7 +187,7 @@ class Request extends Component {
     }    
     axios({
       method: 'DELETE',    
-      url: "http://rumeh.com:9000/api/purchase/status/"+Purchaseid,
+      url: "/api/purchase/status/"+Purchaseid,
       headers: headers,       
     })    
     .then(res => {
