@@ -36,7 +36,7 @@ class Request extends Component {
       Purchaseid: "",
       Supplierid: "",
       Suppliername: "",
-      WhId: "",
+      WhId: "1",
       Whname: "",
       PartId: "",
       Partname: "",
