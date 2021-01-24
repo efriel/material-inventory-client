@@ -1,23 +1,26 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
 
-class SelectDocs extends Component {  
+
+
+class SelectUsers extends Component {  
     constructor(props){
         super(props);
         this.state = {
             options: [],   
             value: this.props.value,
-            items: [],          
+            items: [],
+            classname: this.props.ClassName,
         };
         
     }
         
     componentDidMount() {
-        axios.get("/api/combo/docs")
+        axios.get("/api/combo/users")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      
-            this.setState({ items: option.map(({ doc_number, file_name }) => ({ label: doc_number, value: file_name }))});
+            this.setState({ items: option.map(({ user_id, name, email }) => ({ label: user_id, value: name, contact: email }))});
         });                                      
     }    
 
@@ -29,18 +32,18 @@ class SelectDocs extends Component {
         this.props.onChange(inputSelect);
     };
   
-    render() {          
-        
+    render() {                  
+                
         return (            
-                <select               
-                id="DocNumber"
-                name="DocNumber"
+                <select                
+                id="UserId"
+                name="UserId"
                 onChange={this.handleOnChange}                
-                value={this.state.value}              
+                value={this.state.value}                               
                 >
-                {this.state.items.map(({ label, value }) => (                    
+                {this.state.items.map(({ label, value, contact }) => (                    
                     <option key={label} value={label}>
-                    {value} | Doc No. ({label})
+                    {value} - {contact}
                     </option>
                 ))}
                 </select>            
@@ -48,4 +51,4 @@ class SelectDocs extends Component {
     } 
 }
 
-export default SelectDocs;
+export default SelectUsers;

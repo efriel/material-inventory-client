@@ -46,13 +46,10 @@ class Navbarheader extends Component {
               </DropdownItem>
               <DropdownItem href="/master/goods">
                 Finished Good
-              </DropdownItem>                
-              <DropdownItem href="/master/site">
-                Site
-              </DropdownItem>
-              <DropdownItem href="/master/supplier">
-                Supplier
-              </DropdownItem>                
+              </DropdownItem>    
+
+                          
+              
             </DropdownMenu>
           </UncontrolledDropdown>
 
@@ -62,30 +59,19 @@ class Navbarheader extends Component {
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem href="/purchasing/request">
-                Request 
+                Request RFM
+              </DropdownItem>
+              <DropdownItem href="/purchasing/quotation">
+                Quotation
               </DropdownItem>
               <DropdownItem href="/purchasing/invoice">
                 Vendor Invoice
-              </DropdownItem>                
-              <DropdownItem href="/purchasing/po">
-                PO to Vendor
-              </DropdownItem>
+              </DropdownItem>                              
               <DropdownItem href="/purchasing/receipt">
                 Vendor Receipt
               </DropdownItem>                
               <DropdownItem divider />
-              <DropdownItem href="/sales/order">
-                Cust. Order
-              </DropdownItem>                
-              <DropdownItem href="/sales/invoice">
-                Cust. Invoice
-              </DropdownItem>                
-              <DropdownItem href="/sales/receipt">
-                Cust. Receipt
-              </DropdownItem>                
-              <DropdownItem href="/sales/sentitem">
-                Sent Item
-              </DropdownItem>                
+              
             </DropdownMenu>
           </UncontrolledDropdown>
 

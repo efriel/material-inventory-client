@@ -19,6 +19,7 @@ import MasterGoods from "./components/master/Goods";
 import MasterSite from "./components/master/Site";
 import MasterSupplier from "./components/master/Supplier";
 import PurchasingRequest from "./components/purchasing/Request";
+import PurchasingQuotation from "./components/purchasing/Quotation";
 import PurchasingInvoice from "./components/purchasing/Invoice";
 import PurchasingPo from "./components/purchasing/Po";
 import PurchasingReceipt from "./components/purchasing/Receipt";
@@ -59,8 +60,9 @@ if (localStorage.jwtToken) {
                   <PrivateRoute path="/master/site" component={MasterSite} />
                   <PrivateRoute path="/master/supplier" component={MasterSupplier} />
                   <PrivateRoute path="/purchasing/request" component={PurchasingRequest} />
+                  <PrivateRoute path="/purchasing/quotation" component={PurchasingQuotation} />
                   <PrivateRoute path="/purchasing/invoice" component={PurchasingInvoice} />
-                  <PrivateRoute path="/purchasing/po" component={PurchasingPo} />
+                  <PrivateRoute path="/purchasing/sendpo" component={PurchasingPo} />
                   <PrivateRoute path="/purchasing/receipt" component={PurchasingReceipt} />
                   <PrivateRoute path="/sales/order" component={SalesOrder} />
                   <PrivateRoute path="/sales/invoice" component={SalesInvoice} />

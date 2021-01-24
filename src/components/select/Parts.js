@@ -1,23 +1,26 @@
 import React, { Component, useState } from "react";
 import axios from "axios";
 
-class SelectDocs extends Component {  
+
+
+class SelectParts extends Component {  
     constructor(props){
         super(props);
         this.state = {
             options: [],   
             value: this.props.value,
-            items: [],          
+            items: [],
+            classname: this.props.ClassName,
         };
         
     }
         
     componentDidMount() {
-        axios.get("/api/combo/docs")
+        axios.get("/api/combo/parts")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      
-            this.setState({ items: option.map(({ doc_number, file_name }) => ({ label: doc_number, value: file_name }))});
+            this.setState({ items: option.map(({ part_id, part_name, part_code }) => ({ label: part_id, value: part_name, code: part_code }))});
         });                                      
     }    
 
@@ -29,18 +32,18 @@ class SelectDocs extends Component {
         this.props.onChange(inputSelect);
     };
   
-    render() {          
-        
+    render() {                  
+                
         return (            
-                <select               
-                id="DocNumber"
-                name="DocNumber"
+                <select                
+                id="PartId"
+                name="PartId"
                 onChange={this.handleOnChange}                
-                value={this.state.value}              
+                value={this.state.value}                               
                 >
-                {this.state.items.map(({ label, value }) => (                    
+                {this.state.items.map(({ label, value, code }) => (                    
                     <option key={label} value={label}>
-                    {value} | Doc No. ({label})
+                    {value} - Code: {code}
                     </option>
                 ))}
                 </select>            
@@ -48,4 +51,4 @@ class SelectDocs extends Component {
     } 
 }
 
-export default SelectDocs;
+export default SelectParts;

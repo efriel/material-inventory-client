@@ -5,9 +5,9 @@ import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
 import DataTable  from 'react-data-table-component';
 import { Button, Form, Modal } from 'react-bootstrap';
-import SelectWarehouse from "../select/Warehouse"
+import SelectSupplier from "../select/Supplier"
 import SelectBuyer from "../select/Buyer"
-import SelectOriginator from "../select/Originator"
+import SelectDocs from "../select/Docs"
 import SelectParts from "../select/Parts";
 
 const columns = [
@@ -25,7 +25,7 @@ const columns = [
   {name: 'Updated', selector: 'purchase.update_date',},
 ];
 
-class Request extends Component {  
+class Quotation extends Component {  
   constructor(props){
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ class Request extends Component {
       IsNew: false,
 
       Purchaseid: "",
-      Supplierid: "",
+      SupplierId: "",
       Suppliername: "",
       WhId: "",
       Whname: "",
@@ -45,6 +45,7 @@ class Request extends Component {
       Purchasedate: "",
       Estimatedcost: "",
       Invoiceid: "",
+      DocNumber: "",
       Invoicefile: "",
       Receiptid: "",
       Receiptfile: "",
@@ -55,7 +56,7 @@ class Request extends Component {
       UserId: "",
       Username: "",
       Notes: "",
-      Statusflag: "A",
+      Statusflag: "B",
       StatusName: "",
       Bidoutdate: "",
       Closeddate: "",
@@ -88,7 +89,7 @@ class Request extends Component {
       ModalDisplayStatus: true,   
       IsNew: false,   
       Purchaseid: purchase.purchase.purchase_id,
-      Supplierid: purchase.purchase.supplier_id,
+      SupplierId: purchase.purchase.supplier_id,
       Suppliername: purchase.supplier.supplier_name,
       WhId: purchase.purchase.wh_id,
       Whname: purchase.warehouse.wh_name,
@@ -99,6 +100,7 @@ class Request extends Component {
       Purchasedate: purchase.purchase.purchase_date,
       Estimatedcost: purchase.purchase.estimated_cost,
       Invoiceid: purchase.purchase.invoice,
+      DocNumber: purchase.purchase.invoice, 
       Invoicefile: purchase.docinvoice.file_name,
       Receiptid: purchase.purchase.receipt,
       Receiptfile: purchase.docreceipt.file_name,
@@ -109,7 +111,7 @@ class Request extends Component {
       UserId: purchase.purchase.user_id,
       Username: purchase.user.name,
       Notes: purchase.purchase.notes,
-      Statusflag: purchase.purchase.status_flag,
+      Statusflag: "B",
       StatusName: purchase.status.status_name,
       Bidoutdate: purchase.purchase.bidout_date,
       Closeddate: purchase.purchase.closed_date,
@@ -137,19 +139,20 @@ class Request extends Component {
     var Purchaseid = this.state.Purchaseid;    
     var IsNew = this.state.IsNew; 
     const { user } = this.props.auth;  
-    const SavedUserId =  user.Userid;      
+    const SavedUserId =  user.Userid;   
     let BuyerId = parseInt(this.state.BuyerId, 10);
-    let OriginatorId = parseInt(this.state.OriginatorId, 10);
+    let OriginatorId = parseInt(this.state.OriginatorId, 10);       
     let partData = {             
+      "supplier_id": this.state.SupplierId,                  
+      "user_id": SavedUserId,      
+      "status_flag": this.state.Statusflag,      
       "wh_id": this.state.WhId,
       "part_id": this.state.PartId,
       "qty": this.state.Qty,      
       "estimated_cost": this.state.Estimatedcost,      
       "buyer_id": BuyerId,
-      "originator_id": OriginatorId,
-      "user_id": SavedUserId,
-      "notes": this.state.Notes,
-      "status_flag": this.state.Statusflag      
+      "originator_id": OriginatorId,      
+      "notes": this.state.Notes,       
     };
     
     let sendMethod = 'PUT';
@@ -207,66 +210,20 @@ class Request extends Component {
 
     return (
       <div>                        
-              <Modal show={this.state.ModalDisplayStatus} onHide={this.modCloseHandler} dialogClassName="modal-80w" aria-labelledby="contained-modal-title-vcenter" centered>
+              <Modal show={this.state.ModalDisplayStatus} onHide={this.modCloseHandler} dialogClassName="sm" aria-labelledby="contained-modal-title-vcenter" centered>
                 <form id="dataForm" ref={this.saveFormRef}>
                 <Modal.Header closeButton>
-                  <Modal.Title>RFM</Modal.Title>
-                  <Form.Label className="col-sm-3"Request for Material></Form.Label>
+                  <Modal.Title>Select Vendor {this.state.Purchaseid}</Modal.Title>                  
                 </Modal.Header>
 
                 <Modal.Body>                  
                   <div className="col-sm-12">
                   <div className="row">
-                  <Form.Label className="col-sm-4">Type of Material</Form.Label>
-                  <SelectWarehouse className="col-sm-7" value={this.state.WhId} name="WhId" onChange={this.handleChange.bind(this)} />                            
+                  <Form.Label className="col-sm-4">Select Vendor</Form.Label>
+                  <SelectSupplier className="col-sm-7" value={this.state.Invoiceid} name="SupplierId" onChange={this.handleChange.bind(this)} />                            
                   </div>  
-                  </div>
-                  <div className="col-sm-12">
-                  <div className="row">
-                  <Form.Label className="col-sm-4">Part Name</Form.Label>
-                  <SelectParts className="col-sm-7" value={this.state.PartId} name="PartId" onChange={this.handleChange.bind(this)} />                            
-                  </div>  
-                  </div>                    
-                  <Form.Label className="col-sm-4">Estimated Cost</Form.Label>
-                  <input onChange={this.handleChange.bind(this)} className="col-sm-7" id="Estimatedcost" name="Estimatedcost" type="text" placeholder="Estimated Cost" defaultValue={this.state.Estimatedcost} autoComplete="off" />
-                  <div className="col-sm-12">
-                  <div className="row">
-                  <Form.Label className="col-sm-4">Select Buyer</Form.Label>
-                  <SelectBuyer className="col-sm-7" value={this.state.BuyerId} name="BuyerId" onChange={this.handleChange.bind(this)} />
-                  </div>
-                  </div>
-                  <div className="col-sm-12">
-                  <div className="row">
-                  <Form.Label className="col-sm-4">Select Originator</Form.Label>
-                  <SelectOriginator className="col-sm-7" value={this.state.OriginatorId} name="OriginatorId " onChange={this.handleChange.bind(this)} />
-                  </div>
-                  </div>
-                  <div className="col-sm-12">
-                  <div className="row">
-                  <Form.Label className="col-sm-4">Quantity</Form.Label>
-                  <input onChange={this.handleChange.bind(this)} className="col-sm-7" id="Qty" name="Qty" type="text" placeholder="Qty" defaultValue={this.state.Qty} autoComplete="off" />
-                  </div>
-                  </div>
-                  <div className="col-sm-12">
+                  </div>                                    
                   
-                  <input
-                      name="IsAutomatic"
-                      type="checkbox"
-                      checked={false}
-                      onChange={this.handleChange.bind(this)} />
-                  <label>
-                     -   Check to set Bidder Automatic Selection Mode                     
-                  </label>
-                  
-                  </div>
-                  <div className="col-sm-12">
-                  <div className="row">
-                  <Form.Label className="col-sm-12">Special Instruction</Form.Label>  
-                  <textarea onChange={this.handleChange.bind(this)} className="col-sm-10 offset-sm-1" id="Notes" name="Notes">                  
-                  {this.state.Notes} 
-                  </textarea>                  
-                  </div>
-                  </div>
                 </Modal.Body>       
                 
 
@@ -281,14 +238,9 @@ class Request extends Component {
                 </form>
 
               </Modal>                      
-          <div className="row">
-            <div className="col-sm-12"> 
-              <hr className="hr"/>
-              <Button type="button" variant="primary" onClick={this.modOpenHandlerAdd}>Add Request</Button>{' '}
-            </div>    
-          </div>    
+          
           <DataTable
-            title="List Of Request"
+            title="List of request to be processed"
             columns={columns}
             data={this.state.purchase}            
             selectableRowsComponentProps={{ inkDisabled: true }}             
@@ -300,7 +252,7 @@ class Request extends Component {
   }
 }
 
-Request.propTypes = {
+Quotation.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -310,4 +262,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(Request);
+)(Quotation);
