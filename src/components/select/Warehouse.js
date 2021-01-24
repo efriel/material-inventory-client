@@ -13,7 +13,7 @@ class SelectWarehouse extends Component {
     }
         
     componentDidMount() {
-        axios.get("/api/combo/warehouse")
+        axios.get("http://rumeh.com:9000/api/combo/warehouse")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

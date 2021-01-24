@@ -16,7 +16,7 @@ class SelectCategory extends Component {
     }
         
     componentDidMount() {
-        axios.get("/api/combo/category")
+        axios.get("http://rumeh.com:9000/api/combo/category")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      
