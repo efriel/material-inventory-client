@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import axios from "axios";
+import axios from "../../utils/Instance";
 import DataTable  from 'react-data-table-component';
 import { Button, Form, Modal } from 'react-bootstrap';
 import SelectCategory from "../select/Categories"
@@ -53,7 +53,7 @@ class Goods extends Component {
  
 
   componentDidMount() {
-    axios.get("/api/master/goods")
+    axios.get("/master/goods")
     .then(res => {
       const goods = res.data.Response;      
       this.setState({ goods });      
@@ -119,19 +119,15 @@ class Goods extends Component {
       "fg_notes" : this.state.FgNotes,
     };
     let sendMethod = 'PUT';
-    let sendUrl = "/api/master/goods/"+Fgid;
+    let sendUrl = "/master/goods/"+Fgid;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "/api/master/goods";
+      sendUrl = "/master/goods";
     }
-    console.log(goodsData);
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    console.log(goodsData);    
     axios({
       method: sendMethod,    
-      url: sendUrl,
-      headers: headers, 
+      url: sendUrl,      
       data: goodsData
     })    
     .then(res => {
@@ -146,14 +142,10 @@ class Goods extends Component {
     this.setState({ModalDisplayStatus: false});        
     var Fgid = this.state.Fgid;
     const { user } = this.props.auth;  
-    const SavedUserId =  user.Userid;        
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    const SavedUserId =  user.Userid;            
     axios({
       method: 'DELETE',    
-      url: "/api/master/goods/"+Fgid,
-      headers: headers,       
+      url: "/master/goods/"+Fgid,           
     })    
     .then(res => {
       const goodsupdated = res.data.Response;      

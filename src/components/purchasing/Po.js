@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import axios from "axios";
+import axios from "../../utils/Instance";
 import DataTable  from 'react-data-table-component';
 import { Button, Form, Modal } from 'react-bootstrap';
 import SelectWarehouse from "../select/Warehouse"
@@ -68,7 +68,7 @@ class Sendpo extends Component {
  
 
   componentDidMount() {
-    axios.get("/api/purchase/status/a")
+    axios.get("/purchase/status/a")
     .then(res => {
       const purchase = res.data.Response;      
       this.setState({ purchase });            
@@ -147,20 +147,16 @@ class Sendpo extends Component {
     };
     
     let sendMethod = 'PUT';
-    let sendUrl = "/api/purchase/status/"+Purchaseid;
+    let sendUrl = "/purchase/status/"+Purchaseid;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "/api/purchase/status";
+      sendUrl = "/purchase/status";
     }
     
-    console.log(partData);
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    console.log(partData);    
     axios({
       method: sendMethod,    
-      url: sendUrl,
-      headers: headers, 
+      url: sendUrl,      
       data: partData
     })    
     .then(res => {
@@ -175,14 +171,10 @@ class Sendpo extends Component {
     this.setState({ModalDisplayStatus: false});        
     var Purchaseid = this.state.Purchaseid;
     const { user } = this.props.auth;  
-    const SavedUserId =  user.UserId;            
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    const SavedUserId =  user.UserId;                
     axios({
       method: 'DELETE',    
-      url: "/api/purchase/status/"+Purchaseid,
-      headers: headers,       
+      url: "/purchase/status/"+Purchaseid,          
     })    
     .then(res => {
       const partupdated = res.data.Response;                

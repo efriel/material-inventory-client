@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/Instance";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
@@ -8,10 +8,9 @@ import {
 } from "./types";
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  axios
-    //.post("http://rumeh.com:9000/api/signup", userData)
-    .post("/api/signup", userData)    
-    .then(res => history.push("/login")) // re-direct to login on successful register
+  axios    
+    .post("/signup", userData)    
+    .then(res => history.push("/login"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -20,15 +19,10 @@ export const registerUser = (userData, history) => dispatch => {
     );
 };
 
-export const loginUser = userData => dispatch => {  
-  const headers = {
-    'Content-Type': 'application/json',   
-  }    
+export const loginUser = userData => dispatch => {    
     axios({
-      method: 'post',
-      //url: "http://rumeh.com:9000/api/signin",
-      url: "/api/signin",
-      headers: headers, 
+      method: 'post',      
+      url: "/signin",      
       data: userData
     })    
     .then(res => {      

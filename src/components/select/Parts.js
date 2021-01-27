@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import axios from "axios";
+import React, { Component } from "react";
+import axios from "../../utils/Instance";
 
 
 
@@ -16,7 +16,7 @@ class SelectParts extends Component {
     }
         
     componentDidMount() {
-        axios.get("/api/combo/parts")
+        axios.get("/combo/parts")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

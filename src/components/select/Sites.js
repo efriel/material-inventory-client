@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import axios from "axios";
+import React, { Component } from "react";
+import axios from "../../utils/Instance";
 
 class SelectSite extends Component {  
     constructor(props){
@@ -13,7 +13,7 @@ class SelectSite extends Component {
     }
         
     componentDidMount() {
-        axios.get("/api/combo/site")
+        axios.get("/combo/site")
         .then(res => {
             const option = res.data.Response;      
             this.setState({ options: option});      

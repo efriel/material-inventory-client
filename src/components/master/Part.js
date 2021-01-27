@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import axios from "axios";
+import axios from "../../utils/Instance";
 import DataTable  from 'react-data-table-component';
 import { Button, Form, Modal } from 'react-bootstrap';
 import SelectCategory from "../select/Categories"
@@ -51,7 +51,7 @@ class Part extends Component {
  
 
   componentDidMount() {
-    axios.get("/api/master/part")
+    axios.get("/master/part")
     .then(res => {
       const parts = res.data.Response;      
       this.setState({ parts });      
@@ -113,19 +113,15 @@ class Part extends Component {
       "part_notes" : this.state.PartNotes,
     };
     let sendMethod = 'PUT';
-    let sendUrl = "/api/master/part/"+PartId;
+    let sendUrl = "/master/part/"+PartId;
     if(IsNew){      
       sendMethod = 'POST';
-      sendUrl = "/api/master/part";
+      sendUrl = "/master/part";
     }
-    console.log(partData);
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    console.log(partData);    
     axios({
       method: sendMethod,    
-      url: sendUrl,
-      headers: headers, 
+      url: sendUrl,      
       data: partData
     })    
     .then(res => {
@@ -141,14 +137,10 @@ class Part extends Component {
     this.setState({ModalDisplayStatus: false});        
     var PartId = this.state.PartId;
     const { user } = this.props.auth;  
-    const SavedUserId =  user.Userid;            
-    const headers = {
-      'Content-Type': 'application/json',   
-    }    
+    const SavedUserId =  user.Userid;                
     axios({
       method: 'DELETE',    
-      url: "/api/master/part/"+PartId,
-      headers: headers,       
+      url: "/master/part/"+PartId,          
     })    
     .then(res => {
       const partupdated = res.data.Response;      
